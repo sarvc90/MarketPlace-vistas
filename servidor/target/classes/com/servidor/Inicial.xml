@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.image.ImageView?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.servidor.Controller.InicialController" style="-fx-background-color: #67b99a;">
+    
+    <!-- Barra de búsqueda -->
+    <AnchorPane layoutX="50" layoutY="10">
+        <HBox spacing="10" alignment="CENTER">
+            <ImageView fx:id="logoImage" fitWidth="50" fitHeight="50" preserveRatio="true"/> <!-- Logo -->
+            <VBox alignment="CENTER_LEFT" spacing="-10">
+                <Text fx:id="marketText" text="market" style="-fx-font-family: 'Comic Sans MS'; -fx-font-size: 20px; -fx-font-weight: bold; -fx-fill: #005031;" />
+                <Text fx:id="placeText" text="place" style="-fx-font-family: 'Comic Sans MS'; -fx-font-size: 20px; -fx-font-weight: bold; -fx-fill: #005031;" />
+            </VBox>
+        </HBox>
+    </AnchorPane>
+    
+    <AnchorPane layoutX="250" layoutY="20"> <!-- Cambié layoutY de 30 a 20 para subir el campo de búsqueda -->
+        <VBox spacing="5" alignment="CENTER">
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+                <TextField fx:id="searchField" promptText="Buscar..." style="-fx-background-color: #ffffff; -fx-text-fill: #000000; -fx-background-radius: 15; -fx-padding: 10; -fx-font-family: 'Courier New'; -fx-font-size: 14px; -fx-font-weight: bold;" prefWidth="310" prefHeight="30"/> <!-- Campo de búsqueda -->
+                
+                <Button fx:id="searchButton" style="-fx-background-color: transparent; -fx-padding: 0;" onAction="#handleSearch"> <!-- Botón de búsqueda -->
+                </Button>
+                
+                <ComboBox fx:id="categoryComboBox" promptText="Categoría" style="-fx-background-color: transparent; -fx-text-fill: #005031; -fx-font-family: 'Courier New'; -fx-font-size: 14px; -fx-font-weight: bold;" prefWidth="150"/> <!-- ComboBox de categorías -->
+            </HBox>
+            
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+                <Button fx:id="settingsButton" style="-fx-background-color: transparent; -fx-padding: 0;" onAction="#handleSettings"> <!-- Botón de ajustes -->
+                </Button>
+            </HBox>
+            
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+                <Button fx:id="notificationsButton" style="-fx-background-color: transparent; -fx-padding: 0;" onAction="#handleNotifications"> <!-- Botón de notificaciones -->
+                </Button>
+            </HBox>
+            
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+                <Button fx:id="chatButton" style="-fx-background-color: transparent; -fx-padding: 0;" onAction="#handleChat"> <!-- Botón de chat -->
+                </Button>
+            </HBox>
+            
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+                <Button fx:id="userButton" onAction="#handleUser" style="-fx-background-color: transparent; -fx-padding: 0;">
+                </Button>
+            </HBox>
+        </VBox>
+    </AnchorPane>
+
+    <AnchorPane layoutY="60" style="-fx-background-color: #67b99a;">
+        <!-- Aquí puedes añadir el contenido adicional -->
+    </AnchorPane>
+</AnchorPane>
