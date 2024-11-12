@@ -12,7 +12,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         try {
             // Cargar el archivo FXML
-            Parent root = FXMLLoader.load(getClass().getResource("ExportacionEstadisticas.xml"));
+            Parent root = FXMLLoader.load(getClass().getResource("ControlPanel.xml"));
 
             // Crear la escena y establecerla en el escenario
             Scene scene = new Scene(root, 800, 600); // Puedes ajustar el tamaño aquí

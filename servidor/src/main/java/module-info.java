@@ -1,6 +1,7 @@
 module com.servidor {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.graphics;
 
     opens com.servidor.Controller to javafx.fxml;
     exports com.servidor.Controller;
