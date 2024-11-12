@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.control.ScrollPane?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.servidor.Controller.InicialController" style="-fx-background-color: #67b99a;">
 
@@ -56,9 +57,19 @@
         </VBox>
     </AnchorPane>
 
-    <!-- Rectángulo en el centro -->
-    <Rectangle layoutX="150" layoutY="100" width="500" height="400" arcHeight="20" arcWidth="20" fill="#def1ea" />
-
+    <!-- Contenedor para el rectángulo y el ScrollPane -->
+    <StackPane layoutX="150" layoutY="100">
+        <!-- Rectángulo -->
+        <Rectangle width="300" height="200" arcHeight="20" arcWidth="20" fill="#def1ea" />
+        
+        <!-- ScrollPane para mostrar productos -->
+        <ScrollPane prefWidth="300" prefHeight="200" style="-fx-background-color: transparent;">
+            <VBox fx:id="productList" spacing="10" alignment="TOP_CENTER" style="-fx-padding: 10;">
+                <!-- Aquí se agregarán los productos dinámicamente -->
+            </VBox>
+        </ScrollPane>
+    </StackPane>
+    
     <AnchorPane layoutY="60" style="-fx-background-color: #67b99a;">
         <!-- Aquí puedes añadir el contenido adicional -->
     </AnchorPane>

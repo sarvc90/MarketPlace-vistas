@@ -37,8 +37,8 @@
                         <PasswordField fx:id="passwordField" promptText="Contraseña..." style="-fx-background-color: #f2f2f2; -fx-text-fill: #827b7b; -fx-background-radius: 25; -fx-padding: 5; -fx-font-family: 'Courier New'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-font-style: italic;" prefWidth="330"/>
                     </HBox>
                     
-                    <Button text="Iniciar sesión" style="-fx-background-color: #67b99a; -fx-text-fill: #ffffff; -fx-font-family: 'Courier New'; -fx-font-size: 18px; -fx-font-weight: bold; -fx-background-radius: 25; -fx-padding: 5;" prefWidth="330" />
-                    <Button text="Registrarse" style="-fx-background-color: transparent; -fx-text-fill: #827b7b; -fx-font-family: 'Courier New'; -fx-font-size: 16px; -fx-font-weight: normal;"/>
+                    <Button text="Iniciar sesión" style="-fx-background-color: #67b99a; -fx-text-fill: #ffffff; -fx-font-family: 'Courier New'; -fx-font-size: 18px; -fx-font-weight: bold; -fx-background-radius: 25; -fx-padding: 5;" prefWidth="330" onAction="#handleLogInButton"/>
+                    <Button text="Registrarse" style="-fx-background-color: transparent; -fx-text-fill: #827b7b; -fx-font-family: 'Courier New'; -fx-font-size: 16px; -fx-font-weight: normal;" onAction="#handleRegisterButton"/>
                 </VBox>
             </VBox>
         </StackPane>

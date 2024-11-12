@@ -11,18 +11,18 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class LogInController {
+public class RegistroController {
 
     @FXML
     private StackPane stackPane;
 
     @FXML
-    private VBox loginVBox;
+    private VBox registroVBox;
 
     @FXML
     private ImageView userImage;
 
-    @FXML
+    @FXML 
     private ImageView logoImage;
 
     @FXML
@@ -31,7 +31,7 @@ public class LogInController {
             // Cargar la imagen del usuario
             Image userImg = new Image(getClass().getResourceAsStream("/com/servidor/images/user.png"));
             userImage.setImage(userImg);
-
+    
             // Cargar la imagen del logo
             Image logoImg = new Image(getClass().getResourceAsStream("/com/servidor/images/logo.png"));
             logoImage.setImage(logoImg);
@@ -39,23 +39,22 @@ public class LogInController {
             e.printStackTrace(); // Imprimir la traza completa de la excepción
         }
     }
-
     @FXML
-    private void handleLogInButton() {
-        System.out.println("Iniciando Sesion");
+    private void handleBackButton() {
+        try {
+            // Cargar la vista LogIn.xml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/servidor/LogIn.xml"));
+            Scene scene = new Scene(loader.load());
+            Stage stage = (Stage) stackPane.getScene().getWindow(); // Obtiene la ventana actual
+            stage.setScene(scene); // Cambia la escena a la vista de inicio de sesión
+            stage.show(); // Muestra la nueva escena
+        } catch (IOException e) {
+            e.printStackTrace(); // Imprimir la traza completa de la excepción
+        }
     }
 
     @FXML
-    private void handleRegisterButton() {
-        try {
-            // Cargar la vista LogIn.xml
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/servidor/Registro.xml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) stackPane.getScene().getWindow(); 
-            stage.setScene(scene); 
-            stage.show(); 
-        } catch (IOException e) {
-            e.printStackTrace(); 
-        }
+    private void handleRegisterButton(){
+        System.out.println("Intentando registro");
     }
 }
