@@ -27,6 +27,7 @@
                 <!-- Botón para abrir diálogo de selección de fechas -->
                 <Button text="Seleccionar Fechas" style="-fx-background-color: #67b99a; -fx-text-fill: #ffffff; -fx-font-family: 'Courier New'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-background-radius: 25; -fx-padding: 5;" 
                         onAction="#showDateSelectionDialog"/>
+                
             </VBox>
         </StackPane>
     </VBox>
