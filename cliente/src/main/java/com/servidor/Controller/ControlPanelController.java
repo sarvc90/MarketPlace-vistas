@@ -23,11 +23,7 @@ public class ControlPanelController {
     private void loadLogoImage() {
         try {
             Image logoImg = new Image(getClass().getResourceAsStream("/com/servidor/images/logo.png"));
-            if (logoImg != null) {
-                logoImage.setImage(logoImg);
-            } else {
-                System.out.println("La imagen del logo no se encontró.");
-            }
+            logoImage.setImage(logoImg);
         } catch (Exception e) {
             e.printStackTrace();
         }

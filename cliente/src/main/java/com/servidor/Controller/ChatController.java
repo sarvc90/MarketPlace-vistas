@@ -4,7 +4,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -119,11 +118,7 @@ public class ChatController {
         try {
             // Cargar la imagen del logo desde el recurso
             Image logoImg = new Image(getClass().getResourceAsStream("/com/servidor/images/logo.png"));
-            if (logoImg != null) {
-                logoImage.setImage(logoImg);
-            } else {
-                System.out.println("La imagen del logo no se encontró.");
-            }
+            logoImage.setImage(logoImg);
         } catch (Exception e) {
             e.printStackTrace();
         }
