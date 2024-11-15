@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.servidor.Controller.AdministradorController" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #67b99a;">
+    <!-- Rectángulo en el lado derecho -->
+    <Rectangle layoutX="400" layoutY="10" width="390" height="580" fill="#c9dbd4" arcWidth="20" arcHeight="20"/>
+
+    <!-- Texto "Perfil" en la parte superior izquierda -->
+    <Text text="Administrador" layoutX="15" layoutY="40" style="-fx-font-family: 'Courier New'; -fx-font-size: 40px; -fx-font-weight: bold; -fx-fill: #def1ea;" />
+
+    <!-- Imagen del usuario -->
+    <ImageView fx:id="userImage" layoutX="45" layoutY="70" fitWidth="200" fitHeight="200" preserveRatio="true" />
+
+    <Text text="Nombres: " layoutX="45" layoutY="300" style="-fx-font-family: 'Courier New'; -fx-font-size: 15px; -fx-fill: #036666;" />
+    <Text text="Apellidos: " layoutX="45" layoutY="320" style="-fx-font-family: 'Courier New'; -fx-font-size: 15px; -fx-fill: #036666;" />
+    <Text text="Cédula: " layoutX="45" layoutY="340" style="-fx-font-family: 'Courier New'; -fx-font-size: 15px; -fx-fill: #036666;" />
+    <Text text="Contraseña: " layoutX="45" layoutY="360" style="-fx-font-family: 'Courier New'; -fx-font-size: 15px; -fx-fill: #036666;" />
+    <Text text="Dirección: " layoutX="45" layoutY="380" style="-fx-font-family: 'Courier New'; -fx-font-size: 15px; -fx-fill: #036666;" />
+    <Text text="Reputación: " layoutX="45" layoutY="400" style="-fx-font-family: 'Courier New'; -fx-font-size: 15px; -fx-fill: #036666;" />
+    
+    <Button text="Actualizar datos" 
+            layoutX="45" 
+            layoutY="440" 
+            style="-fx-background-color: #036666; -fx-text-fill: #ffffff; -fx-font-family: 'Courier New'; -fx-font-size: 15px; -fx-background-radius: 25; -fx-padding: 5;" 
+            prefWidth="330" 
+            onAction="#handleActualizarDatos"/>
+    
+    <Button text="Panel de control" 
+            layoutX="45" 
+            layoutY="480" 
+            style="-fx-background-color: #036666; -fx-text-fill: #ffffff; -fx-font-family: 'Courier New'; -fx-font-size: 15px; -fx-background-radius: 25; -fx-padding: 5;" 
+            prefWidth="330" 
+            onAction="#handlePanelControl"/>
+        
+    <Button text="Exportar estadísticas" 
+            layoutX="45" 
+            layoutY="520" 
+            style="-fx-background-color: #036666; -fx-text-fill: #ffffff; -fx-font-family: 'Courier New'; -fx-font-size: 15px; -fx-background-radius: 25; -fx-padding: 5;" 
+            prefWidth="330" 
+            onAction="#handleExportarEstadisticas"/>
+
+    <!-- Contenido dentro del rectángulo de la derecha -->
+    <Text text="Productos publicados" layoutX="410" layoutY="30" style="-fx-font-family: 'Courier New'; -fx-font-size: 15px; -fx-font-weight: bold; -fx-fill: #036666;" />
+    <Rectangle layoutX="410" layoutY="40" width="180" height="400" fill="#f2f2f2" arcWidth="20" arcHeight="20"/>
+
+    <Button text="Eliminar" 
+            layoutX="450" 
+            layoutY="460" 
+            style="-fx-background-color: #036666; -fx-text-fill: #ffffff; -fx-font-family: 'Courier New'; -fx-font-size: 13px; -fx-background-radius: 25; -fx-padding: 5;" 
+            prefWidth="110" 
+            onAction="#handleEliminarProducto"/>
+
+    <Button text="Crear" 
+            layoutX="450" 
+            layoutY="500" 
+            style="-fx-background-color: #036666; -fx-text-fill: #ffffff; -fx-font-family: 'Courier New'; -fx-font-size: 13px; -fx-background-radius: 25; -fx-padding: 5;" 
+            prefWidth="110" 
+            onAction="#handleCrearProducto"/>
+
+    <Text text="Lista de vendedores" layoutX="605" layoutY="30" style="-fx-font-family: 'Courier New'; -fx-font-size : 15px; -fx-font-weight: bold; -fx-fill: #036666;" />
+    <Rectangle layoutX="600" layoutY="40" width="180" height="400" fill="#f2f2f2" arcWidth="20" arcHeight="20"/>
+    
+    <Button text="Eliminar" 
+            layoutX="650" 
+            layoutY="460" 
+            style="-fx-background-color: #036666; -fx-text-fill: #ffffff; -fx-font-family: 'Courier New'; -fx-font-size: 13px; -fx-background-radius: 25; -fx-padding: 5;" 
+            prefWidth="110" 
+            onAction="#handleEliminarVendedor"/>
+
+    <Button text="Crear" 
+            layoutX="650" 
+            layoutY="500" 
+            style="-fx-background-color: #036666; -fx-text-fill: #ffffff; -fx-font-family: 'Courier New'; -fx-font-size: 13px; -fx-background-radius: 25; -fx-padding: 5;" 
+            prefWidth="110" 
+            onAction="#handleCrearVendedor"/>
+
+</AnchorPane>
