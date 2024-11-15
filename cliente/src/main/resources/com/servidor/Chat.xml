@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.servidor.Controller.ChatController">
+    <children>
+        <ComboBox fx:id="userComboBox" layoutX="14.0" layoutY="14.0" prefWidth="200.0"/>
+        <ImageView fx:id="logoImage" layoutX="250.0" layoutY="10.0" fitHeight="50.0" fitWidth="50.0"/>
+        <VBox fx:id="chatContainer" layoutX="14.0" layoutY="50.0" prefHeight="400.0" prefWidth="300.0" spacing="10.0" />
+        <TextField fx:id="messageTextField" layoutX="14.0" layoutY="460.0" prefWidth="200.0"/>
+        <Button fx:id="sendMessageButton" layoutX="220.0" layoutY="460.0" text="Enviar" onAction="#sendMessage"/>
+    </children>
+</AnchorPane>

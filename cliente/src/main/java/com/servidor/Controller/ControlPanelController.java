@@ -17,54 +17,79 @@ public class ControlPanelController {
 
     @FXML
     public void initialize() {
-        try {
+        loadLogoImage();
+    }
 
-            // Cargar la imagen del logo
+    private void loadLogoImage() {
+        try {
             Image logoImg = new Image(getClass().getResourceAsStream("/com/servidor/images/logo.png"));
-            logoImage.setImage(logoImg);
+            if (logoImg != null) {
+                logoImage.setImage(logoImg);
+            } else {
+                System.out.println("La imagen del logo no se encontró.");
+            }
         } catch (Exception e) {
-            e.printStackTrace(); // Imprimir la traza completa de la excepción
+            e.printStackTrace();
         }
     }
 
     @FXML
     private void showDateSelectionDialog() {
-        // Crear un nuevo diálogo
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Seleccionar Fechas");
 
-        // Crear DatePicker para la fecha inicial
         DatePicker startDatePicker = new DatePicker();
         Label startDateLabel = new Label("Fecha inicial:");
-        
-        // Crear DatePicker para la fecha final
+
         DatePicker endDatePicker = new DatePicker();
         Label endDateLabel = new Label("Fecha final:");
 
-        // Crear un contenedor para los DatePicker
         VBox vbox = new VBox(10, startDateLabel, startDatePicker, endDateLabel, endDatePicker);
         dialog.getDialogPane().setContent(vbox);
-
-        // Añadir botones de confirmación y cancelación
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
-        // Mostrar el diálogo y esperar la respuesta
         dialog.showAndWait().ifPresent(buttonType -> {
             if (buttonType == ButtonType.OK) {
-                // Obtener las fechas seleccionadas
                 LocalDate startDate = startDatePicker.getValue();
                 LocalDate endDate = endDatePicker.getValue();
-                
-                // Validar que ambas fechas han sido seleccionadas
+
                 if (startDate != null && endDate != null) {
-                    // Aquí puedes implementar la lógica para filtrar con las fechas seleccionadas
                     System.out.println("Fecha inicial: " + startDate);
                     System.out.println("Fecha final: " + endDate);
                 } else {
-                    // Manejar el caso donde no se seleccionó alguna fecha
                     System.out.println("Por favor, selecciona ambas fechas.");
                 }
             }
         });
+    }
+
+    @FXML
+    private void handleMessagesBetweenVendors() {
+        System.out.println("Acción: Mensajes enviados entre 2 vendedores");
+        // Implementa la lógica necesaria aquí
+    }
+
+    @FXML
+    private void handleProductsPublishedInDateRange() {
+        System.out.println("Acción: Cantidad de productos publicados dentro de un rango de fecha");
+        // Implementa la lógica necesaria aquí
+    }
+
+    @FXML
+    private void handleProductsPublishedByVendor() {
+        System.out.println("Acción: Cantidad de productos publicados por vendedor");
+        // Implementa la lógica necesaria aquí
+    }
+
+    @FXML
+    private void handleContactsByVendor() {
+        System.out.println("Acción: Cantidad de contactos por vendedor");
+        // Implementa la lógica necesaria aquí
+    }
+
+    @FXML
+    private void handleTop10PopularProducts() {
+        System.out.println("Acción: Top 10 de productos más populares");
+        // Implementa la lógica necesaria aquí
     }
 }
