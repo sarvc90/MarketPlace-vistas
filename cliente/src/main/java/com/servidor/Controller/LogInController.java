@@ -33,10 +33,10 @@ public class LogInController {
     private ImageView logoImage;
 
     @FXML
-    private TextField nameField; 
+    private TextField nameField;
 
     @FXML
-    private PasswordField passwordField; 
+    private PasswordField passwordField;
 
     private static String HOST = "localhost";
     private static final int PUERTO = 12345;
@@ -60,7 +60,7 @@ public class LogInController {
     private void handleLogInButton() {
         String username = nameField.getText().trim(); // Usar trim para eliminar espacios en blanco
         String password = passwordField.getText();
-    
+
         // Validar que los campos no estén vacíos
         if (username.isEmpty() || password.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -70,18 +70,18 @@ public class LogInController {
             alert.showAndWait();
             return; // Salir del método si hay campos vacíos
         }
-    
+
         try (Socket socket = new Socket(HOST, PUERTO);
-             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
-    
-            // Enviar el nombre de usuario y la contraseña al servidor
-            out.println(username);
-            out.println(password);
-    
+                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+
+            // Enviar el comando de inicio de sesión junto con el nombre de usuario y la
+            // contraseña
+            out.println("LOGIN " + username + " " + password);
+
             // Leer la respuesta del servidor
             String response = in.readLine();
-    
+
             // Verificar si la respuesta es nula
             if (response == null || response.isEmpty()) {
                 // Mostrar un alert de error
@@ -93,9 +93,34 @@ public class LogInController {
             } else {
                 // Aquí puedes manejar la respuesta válida (por ejemplo, iniciar sesión)
                 System.out.println("Inicio de sesión exitoso. ID: " + response);
-                // Puedes redirigir a otra vista o realizar otras acciones
+
+                // Cargar la nueva vista
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/servidor/Inicial.fxml")); // Cambia
+                                                                                                              // la ruta
+                                                                                                              // al
+                                                                                                              // archivo
+                                                                                                              // FXML
+                    Scene scene = new Scene(loader.load());
+                    Stage stage = (Stage) stackPane.getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+
+                    // Pasar el ID al nuevo controlador
+                    InicialController inicialController = loader.getController();
+                    inicialController.initializeWithUser(response); // Método para inicializar con el ID
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    // Manejar excepciones de carga de vista
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error de Carga de Vista");
+                    alert.setHeaderText(null);
+                    alert.setContentText("No se pudo cargar la vista inicial.");
+                    alert.showAndWait();
+                }
             }
-    
+
         } catch (IOException e) {
             e.printStackTrace();
             // Manejar excepciones de conexión
@@ -113,11 +138,11 @@ public class LogInController {
             // Cargar la vista LogIn.xml
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/servidor/Registro.xml"));
             Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) stackPane.getScene().getWindow(); 
-            stage.setScene(scene); 
-            stage.show(); 
+            Stage stage = (Stage) stackPane.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
         } catch (IOException e) {
-            e.printStackTrace(); 
+            e.printStackTrace();
         }
     }
 }

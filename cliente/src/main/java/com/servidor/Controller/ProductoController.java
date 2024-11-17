@@ -31,10 +31,11 @@ public class ProductoController {
         this.producto = producto;
     }
 
-    @FXML
-    public void initialize() {
+    public void initializeWithProduct(ProductoDTO producto) {
+        this.producto = producto;
+
         // Cargar la imagen del producto
-        Image productImage = new Image(producto.getImagenRuta());
+        Image productImage = new Image(getClass().getResourceAsStream(producto.getImagenRuta()));
         imageView.setImage(productImage);
         
         // Establecer los valores en las etiquetas
@@ -49,5 +50,10 @@ public class ProductoController {
             Label comentarioLabel = new Label(comentario.getTexto());
             comentariosVBox.getChildren().add(comentarioLabel);
         }
+    }
+
+    @FXML
+    public void initialize() {
+        // Este método se puede dejar vacío o usar para inicializaciones generales
     }
 }

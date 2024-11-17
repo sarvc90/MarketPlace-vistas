@@ -68,6 +68,7 @@
                 <!-- Aquí se agregarán los productos dinámicamente -->
             </VBox>
         </ScrollPane>
+        <Button fx:id="reloadButton" text="Recargar Productos" onAction="#handleReloadProducts" style="-fx-background-color: #def1ea; -fx-font-size: 14px;"/>
     </StackPane>
     
     <AnchorPane layoutY="60" style="-fx-background-color: #67b99a;">

@@ -1,8 +1,9 @@
 package com.servidor.Model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class VendedorDTO {
+public class VendedorDTO implements Serializable{
     private String id;
     private String nombre;
     private String apellido;

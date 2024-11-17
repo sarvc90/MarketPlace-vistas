@@ -1,9 +1,10 @@
 package com.servidor.Model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class ProductoDTO {
+public class ProductoDTO implements Serializable{
     private String id;
     private String nombre;
     private String descripcion;

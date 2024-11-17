@@ -1,8 +1,9 @@
 package com.servidor.Model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class ComentarioDTO {
+public class ComentarioDTO implements Serializable{
     private String id;
     private String autorId; // Solo almacenamos el ID del autor en el DTO
     private LocalDateTime fechaPublicacion;
