@@ -256,9 +256,10 @@ public class InicialController {
             // Cargar la vista ControlPanel.xml
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/servidor/ControlPanel.xml"));
             Scene scene = new Scene(loader.load());
-            
+
             // Obtener la ventana actual y cambiar la escena
-            Stage stage = (Stage) settingsButton.getScene().getWindow(); // Asegúrate de que settingsButton es el botón que llama a este método
+            Stage stage = (Stage) settingsButton.getScene().getWindow(); // Asegúrate de que settingsButton es el botón
+                                                                         // que llama a este método
             stage.setScene(scene); // Cambia la escena a la vista de ControlPanel
             stage.show(); // Muestra la nueva escena
         } catch (IOException e) {
@@ -267,61 +268,103 @@ public class InicialController {
         }
     }
 
-@FXML
-private void handleNotifications() {
-    try (Socket socket = new Socket(HOST, PUERTO);
-         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+    @FXML
+    private void handleNotifications() {
+        try (Socket socket = new Socket(HOST, PUERTO);
+                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
-        // Enviar el ID al servidor
-        out.println("GET_NOTIFICATIONS " + userId);
+            // Enviar el ID al servidor
+            out.println("GET_NOTIFICATIONS " + userId);
 
-        // Leer la respuesta del servidor
-        String response = in.readLine(); // Suponiendo que el servidor devuelve las solicitudes y mensajes en un formato específico
-        String[] data = response.split(";"); // Suponiendo que las listas están separadas por un punto y coma
+            // Leer la respuesta del servidor
+            String response = in.readLine(); // Suponiendo que el servidor devuelve las solicitudes y mensajes en un
+                                             // formato específico
+            String[] data = response.split(";"); // Suponiendo que las listas están separadas por un punto y coma
 
-        // Parsear las solicitudes y mensajes
-        List<String> solicitudes = Arrays.asList(data[0].split(",")); // Solicitudes
-        List<String> mensajes = Arrays.asList(data[1].split(",")); // Mensajes
+            // Parsear las solicitudes y mensajes
+            List<String> solicitudes = Arrays.asList(data[0].split(",")); // Solicitudes
+            List<String> mensajes = Arrays.asList(data[1].split(",")); // Mensajes
 
-        // Abrir una nueva ventana para mostrar las notificaciones
-        openNotificationsWindow(solicitudes, mensajes);
+            // Abrir una nueva ventana para mostrar las notificaciones
+            openNotificationsWindow(solicitudes, mensajes);
 
-    } catch (IOException e) {
-        e.printStackTrace();
-        System.out.println("Error al conectar con el servidor.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error al conectar con el servidor.");
+        }
     }
-}
 
-private void openNotificationsWindow(List<String> solicitudes, List<String> mensajes) {
-    try {
-        // Cargar la vista de notificaciones
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/servidor/NotificationsView.xml"));
-        Parent root = loader.load();
+    private void openNotificationsWindow(List<String> solicitudes, List<String> mensajes) {
+        try {
+            // Cargar la vista de notificaciones
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/servidor/NotificationsView.xml"));
+            Parent root = loader.load();
 
-        // Obtener el controlador de la nueva vista
-        NotificationsController notificationsController = loader.getController();
-        notificationsController.setData(solicitudes, mensajes); // Pasar las listas al controlador
+            // Obtener el controlador de la nueva vista
+            NotificationsController notificationsController = loader.getController();
+            notificationsController.setData(solicitudes, mensajes); // Pasar las listas al controlador
 
-        // Crear una nueva escena y ventana
-        Stage stage = new Stage();
-        stage.setTitle("Notificaciones");
-        stage.setScene(new Scene(root));
-        stage.show();
+            // Crear una nueva escena y ventana
+            Stage stage = new Stage();
+            stage.setTitle("Notificaciones");
+            stage.setScene(new Scene(root));
+            stage.show();
 
-    } catch (IOException e) {
-        e.printStackTrace();
-        System.out.println("No se pudo cargar la vista de notificaciones.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("No se pudo cargar la vista de notificaciones.");
+        }
     }
-}
 
     @FXML
     private void handleChat() {
-        System.out.println("Botón de chat presionado");
+        try {
+            // Cargar la vista de chat
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/servidor/BaseChat.xml"));
+            Parent root = loader.load();
+
+            // Obtener el controlador de la nueva vista de chat
+            BaseChatController chatController = loader.getController();
+            chatController.initialize(userId); // Inicializar el chat con el ID del vendedor
+
+            // Crear una nueva escena y ventana
+            Stage stage = new Stage();
+            stage.setTitle("Chat");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("No se pudo cargar la vista de chat.");
+        }
     }
 
     @FXML
     private void handleUser() {
-        System.out.println("Botón de usuario presionado");
+        // Cargar la vista del perfil
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/servidor/perfil.xml"));
+        Parent root;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error al cargar la vista del perfil.");
+            return; // Salir del método si hay un error
+        }
+
+        // Obtener el controlador de la nueva vista de perfil
+        PerfilController perfilController = loader.getController();
+        perfilController.initializeProfile(userId); // Inicializar el perfil con el ID del usuario
+
+        // Crear una nueva escena y ventana
+        Stage stage = new Stage();
+        stage.setTitle("Perfil del Usuario");
+        stage.setScene(new Scene(root));
+        stage.setOnCloseRequest(event -> {
+            // Aquí puedes manejar cualquier acción que desees al cerrar la ventana
+            System.out.println("La ventana de perfil se ha cerrado.");
+        });
+        stage.show();
     }
 }

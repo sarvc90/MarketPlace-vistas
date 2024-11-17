@@ -3,6 +3,10 @@ package com.servidor.Controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
+import com.servidor.Model.ProductoDTO;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -14,8 +18,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -27,28 +31,22 @@ public class CrearProductoController {
     private Button rutaButton;
     @FXML
     private TextField nombreField;
-
     @FXML
     private TextField descripcionField;
-
     @FXML
     private TextField PrecioField;
-
     @FXML
     private ComboBox<String> categoryComboBox;
-
     @FXML
     private ImageView logoImage;
-
     @FXML
     private VBox CreacionBox;
 
     private String rutaSeleccionada;
+    private String userId; 
 
     // Método de inicialización que se llama después de cargar el FXML
-    @FXML
-    private void initialize() {
-
+    @FXML void initialize(String userId) {
         InputStream logoStream = getClass().getResourceAsStream("/com/servidor/images/logo.png");
         if (logoStream == null) {
             System.out.println("No se pudo encontrar la imagen de búsqueda");
@@ -70,6 +68,7 @@ public class CrearProductoController {
                 "JUGUETES",
                 "SALUD",
                 "ROPA"));
+        this.userId = userId;
     }
 
     // Método que se llama cuando se presiona el botón del logo
@@ -81,11 +80,8 @@ public class CrearProductoController {
             Stage stage = (Stage) CreacionBox.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Inicio");
-
-            // Establecer el tamaño de la ventana
             stage.setWidth(800);
             stage.setHeight(600);
-
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -96,16 +92,11 @@ public class CrearProductoController {
     @FXML
     private void handleSelectImageButton() {
         FileChooser fileChooser = new FileChooser();
-
-        // Establecer el filtro para archivos JPG
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Archivos JPG (*.jpg)", "*.jpg");
         fileChooser.getExtensionFilters().add(extFilter);
-
-        // Mostrar el diálogo para seleccionar un archivo
         File selectedFile = fileChooser.showOpenDialog((Stage) rutaButton.getScene().getWindow());
 
         if (selectedFile != null) {
-            // Obtener la ruta absoluta del archivo seleccionado
             rutaSeleccionada = selectedFile.getAbsolutePath();
             rutaButton.setText("Ruta seleccionada: " + rutaSeleccionada);
         } else {
@@ -113,4 +104,66 @@ public class CrearProductoController {
         }
     }
 
+    // Método para manejar la creación de un producto
+    @FXML
+    public void handlePublicarProducto() {
+        String nombre = nombreField.getText();
+        String descripcion = descripcionField.getText();
+        String precioText = PrecioField.getText();
+        String categoria = categoryComboBox.getValue();
+
+        // Validar los campos
+        if (nombre.isEmpty() || descripcion.isEmpty() || precioText.isEmpty() || categoria == null) {
+            showAlert("Error", "Todos los campos deben ser llenados.");
+            return;
+        }
+
+        double precio;
+        try {
+            precio = Double.parseDouble(precioText);
+        } catch (NumberFormatException e) {
+            showAlert("Error", "El precio debe ser un número válido.");
+            return;
+        }
+
+        // Crear el objeto de producto DTO
+        ProductoDTO productoDTO = new ProductoDTO(
+                null, // id
+                nombre, // nombre
+                descripcion, // descripcion
+                LocalDateTime.now(), // fechaPublicacion (o un valor válido)
+                rutaSeleccionada, // imagenRuta
+                (int) precio, // precio (asegúrate de que sea un int)
+                0, // meGustas
+                new ArrayList<>(), // comentarios
+                "desconocido", // estado
+                categoria // categoria
+        );
+
+        // Enviar el producto al servidor (suponiendo que tienes un método para esto)
+        boolean exito = enviarProductoAlServidor(productoDTO);
+
+        // Mostrar alerta según el resultado
+        if (exito) {
+            showAlert("Éxito", "Producto creado exitosamente.");
+        } else {
+            showAlert("Error", "No se pudo crear el producto.");
+        }
+    }
+
+    // Método para mostrar alertas
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    // Método simulado para enviar el producto al servidor
+    private boolean enviarProductoAlServidor(ProductoDTO productoDTO) {
+        // Aquí iría la lógica para enviar el producto al servidor
+        // Retornar true si se creó correctamente, false en caso contrario
+        return true; // Placeholder, implementar lógica real
+    }
 }

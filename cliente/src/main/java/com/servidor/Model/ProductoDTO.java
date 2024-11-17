@@ -2,6 +2,7 @@ package com.servidor.Model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductoDTO implements Serializable{
@@ -22,16 +23,16 @@ public class ProductoDTO implements Serializable{
     public ProductoDTO(String id, String nombre, String descripcion, LocalDateTime fechaPublicacion,
                        String imagenRuta, int precio, int meGustas, List<ComentarioDTO> comentarios,
                        String estado, String categoria) {
-        this.id = id;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.fechaPublicacion = fechaPublicacion;
-        this.imagenRuta = imagenRuta;
-        this.precio = precio;
-        this.meGustas = meGustas;
-        this.comentarios = comentarios;
-        this.estado = estado;
-        this.categoria = categoria;
+        this.id = id; // Asignar ID directamente, asumiendo que puede ser nulo
+        this.nombre = nombre != null ? nombre : ""; // Asignar un valor vacío si es nulo
+        this.descripcion = descripcion != null ? descripcion : ""; // Asignar un valor vacío si es nulo
+        this.fechaPublicacion = fechaPublicacion != null ? fechaPublicacion : LocalDateTime.now(); // Asignar la fecha actual si es nula
+        this.imagenRuta = imagenRuta != null ? imagenRuta : ""; // Asignar un valor vacío si es nulo
+        this.precio = precio; // Asignar directamente, asumiendo que puede ser 0
+        this.meGustas = meGustas; // Asignar directamente, asumiendo que puede ser 0
+        this.comentarios = comentarios != null ? comentarios : new ArrayList<>(); // Inicializar como lista vacía si es nula
+        this.estado = estado != null ? estado : "desconocido"; // Asignar un estado predeterminado si es nulo
+        this.categoria = categoria != null ? categoria : "sin categoría"; // Asignar una categoría predeterminada si es nula
     }
 
     // Getters y Setters
