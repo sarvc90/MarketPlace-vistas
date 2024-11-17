@@ -34,6 +34,13 @@
                 <Button fx:id="likeButton" style="-fx-background-color: transparent; -fx-padding: 0;" layoutX="220" layoutY="10">
                     <ImageView fx:id="likeImage" fitHeight="20" fitWidth="20"/>
                 </Button>
+
+                <Button fx:id="volverButton" text="Volver" layoutX="50" layoutY="10" onAction="#handleVolverButton" style="-fx-background-color: #036666; -fx-text-fill: white;"/>
+
+                <!-- Botón Comprar -->
+                <Button fx:id="comprarButton" text="Comprar" onAction="#handleComprarButton" style="-fx-background-color: #036666; -fx-text-fill: white;"/>
+
+                <Button fx:id="verLikesButton" text="Ver Likes" onAction="#handleVerLikesButton" style="-fx-background-color: #036666; -fx-text-fill: white;"/>
             </VBox>
         </Rectangle>
         
@@ -42,6 +49,5 @@
             <VBox fx:id="comentariosVBox" spacing="5"/>
         </ScrollPane>
         
-        <Label text="Ver Likes" textFill="#036666" style="-fx-font-size: 12px; -fx-text-fill: #036666; -fx-padding: 5;" />
     </VBox>
 </AnchorPane>

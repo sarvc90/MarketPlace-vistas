@@ -23,12 +23,6 @@
     <Text text="Dirección: " layoutX="45" layoutY="380" style="-fx-font-family: 'Courier New'; -fx-font-size: 15px; -fx-fill: #036666;" />
     <Text text="Reputación: " layoutX="45" layoutY="400" style="-fx-font-family: 'Courier New'; -fx-font-size: 15px; -fx-fill: #036666;" />
     
-    <Button text="Actualizar datos" 
-            layoutX="45" 
-            layoutY="440" 
-            style="-fx-background-color: #036666; -fx-text-fill: #ffffff; -fx-font-family: 'Courier New'; -fx-font-size: 15px; -fx-background-radius: 25; -fx-padding: 5;" 
-            prefWidth="330" 
-            onAction="#handleActualizarDatos"/>
     
     <Button text="Panel de control" 
             layoutX="45" 
@@ -54,13 +48,6 @@
             style="-fx-background-color: #036666; -fx-text-fill: #ffffff; -fx-font-family: 'Courier New'; -fx-font-size: 13px; -fx-background-radius: 25; -fx-padding: 5;" 
             prefWidth="110" 
             onAction="#handleEliminarProducto"/>
-
-    <Button text="Crear" 
-            layoutX="450" 
-            layoutY="500" 
-            style="-fx-background-color: #036666; -fx-text-fill: #ffffff; -fx-font-family: 'Courier New'; -fx-font-size: 13px; -fx-background-radius: 25; -fx-padding: 5;" 
-            prefWidth="110" 
-            onAction="#handleCrearProducto"/>
 
     <Text text="Lista de vendedores" layoutX="605" layoutY="30" style="-fx-font-family: 'Courier New'; -fx-font-size : 15px; -fx-font-weight: bold; -fx-fill: #036666;" />
     <Rectangle layoutX="600" layoutY="40" width="180" height="400" fill="#f2f2f2" arcWidth="20" arcHeight="20"/>

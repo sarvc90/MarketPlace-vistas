@@ -124,7 +124,7 @@ public class InicialController {
 
             // Aquí puedes pasar el producto al nuevo controlador
             ProductoController productoController = loader.getController();
-            productoController.initializeWithProduct(producto); // Método para inicializar con el producto
+            productoController.initializeWithProduct(producto, userId); // Método para inicializar con el producto
 
             stage.show();
         } catch (IOException e) {
@@ -250,23 +250,30 @@ public class InicialController {
         }
     }
 
-    @FXML
-    private void handleSettings() {
-        try {
+@FXML
+private void handleSettings() {
+    try {
+        FXMLLoader loader;
+        // Verificar el userId
+        if ("1".equals(userId)) { // Compara el userId con "1"
             // Cargar la vista ControlPanel.xml
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/servidor/ControlPanel.xml"));
-            Scene scene = new Scene(loader.load());
-
-            // Obtener la ventana actual y cambiar la escena
-            Stage stage = (Stage) settingsButton.getScene().getWindow(); // Asegúrate de que settingsButton es el botón
-                                                                         // que llama a este método
-            stage.setScene(scene); // Cambia la escena a la vista de ControlPanel
-            stage.show(); // Muestra la nueva escena
-        } catch (IOException e) {
-            e.printStackTrace(); // Imprimir la traza completa de la excepción
-            System.out.println("No se pudo cargar la vista de ControlPanel.");
+            loader = new FXMLLoader(getClass().getResource("/com/servidor/ControlPanel.xml"));
+        } else {
+            // Cargar la vista actualizarDatos.xml
+            loader = new FXMLLoader(getClass().getResource("/com/servidor/actualizarDatos.xml"));
         }
+        
+        Scene scene = new Scene(loader.load());
+
+        // Obtener la ventana actual y cambiar la escena
+        Stage stage = (Stage) settingsButton.getScene().getWindow(); // Asegúrate de que settingsButton es el botón
+        stage.setScene(scene); // Cambia la escena a la vista correspondiente
+        stage.show(); // Muestra la nueva escena
+    } catch (IOException e) {
+        e.printStackTrace(); // Imprimir la traza completa de la excepción
+        System.out.println("No se pudo cargar la vista correspondiente.");
     }
+}
 
     @FXML
     private void handleNotifications() {

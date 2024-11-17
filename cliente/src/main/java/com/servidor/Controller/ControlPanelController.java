@@ -5,10 +5,17 @@ import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.control.ButtonType;
 import javafx.scene.layout.VBox;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.util.List;
 
 public class ControlPanelController {
 
@@ -50,8 +57,7 @@ public class ControlPanelController {
                 LocalDate endDate = endDatePicker.getValue();
 
                 if (startDate != null && endDate != null) {
-                    System.out.println("Fecha inicial: " + startDate);
-                    System.out.println("Fecha final: " + endDate);
+                    handleProductsPublishedInDateRange(startDate, endDate);
                 } else {
                     System.out.println("Por favor, selecciona ambas fechas.");
                 }
@@ -61,31 +67,157 @@ public class ControlPanelController {
 
     @FXML
     private void handleMessagesBetweenVendors() {
-        System.out.println("Acción: Mensajes enviados entre 2 vendedores");
-        // Implementa la lógica necesaria aquí
+        // Aquí asumimos que se seleccionan dos vendedores de alguna manera, por ejemplo, mediante un ListView
+        String vendedor1 = "vendedor1"; // Reemplazar con el vendedor seleccionado
+        String vendedor2 = "vendedor2"; // Reemplazar con el vendedor seleccionado
+
+        try {
+            Socket socket = new Socket("localhost", 12345);
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            // Enviar la solicitud de mensajes entre vendedores
+            out.println("MENSAJES_ENTRE_VENDEDORES:" + vendedor1 + "," + vendedor2);
+            String respuesta = in.readLine(); // Esperar respuesta del servidor
+
+            // Mostrar mensaje de respuesta
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Mensajes entre Vendedores");
+            alert.setHeaderText(null);
+            alert.setContentText(respuesta);
+            alert.showAndWait();
+
+            // Cerrar la conexión
+            in.close();
+            out.close();
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showError("Error al obtener los mensajes entre vendedores: " + e.getMessage());
+        }
     }
 
     @FXML
-    private void handleProductsPublishedInDateRange() {
-        System.out.println("Acción: Cantidad de productos publicados dentro de un rango de fecha");
-        // Implementa la lógica necesaria aquí
+    private void handleProductsPublishedInDateRange(LocalDate startDate, LocalDate endDate) {
+        try {
+            Socket socket = new Socket("localhost", 12345);
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            // Enviar la solicitud de productos publicados en el rango de fechas
+            out.println("PRODUCTOS_PUBLICADOS_RANGO:" + startDate + "," + endDate);
+            String respuesta = in.readLine(); // Esperar respuesta del servidor
+
+            // Mostrar los productos en un Alert
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Productos Publicados");
+            alert.setHeaderText(null);
+            alert.setContentText("Productos publicados en el rango de fechas:\n" + respuesta);
+            alert.showAndWait();
+
+            // Cerrar la conexión
+            in.close();
+            out.close();
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showError("Error al obtener productos publicados: " + e.getMessage());
+        }
     }
 
     @FXML
     private void handleProductsPublishedByVendor() {
-        System.out.println("Acción: Cantidad de productos publicados por vendedor");
-        // Implementa la lógica necesaria aquí
+        String vendorId = "vendorId"; // Reemplazar con el ID del vendedor seleccionado
+
+        try {
+            Socket socket = new Socket("localhost", 12345);
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            // Enviar la solicitud de productos publicados por el vendedor
+            out.println("PRODUCTOS_PUBLICADOS_POR_VENDEDOR:" + vendorId);
+            String respuesta = in.readLine(); // Esperar respuesta del servidor
+
+            // Mostrar los productos en un Alert
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Productos Publicados por Vendedor");
+            alert.setHeaderText(null);
+            alert.setContentText("Productos publicados por el vendedor:\n" + respuesta);
+            alert.showAndWait();
+
+            // Cerrar la conexión
+            in.close();
+            out.close();
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showError("Error al obtener productos publicados por el vendedor: " + e.getMessage());
+        }
     }
 
     @FXML
     private void handleContactsByVendor() {
-        System.out.println("Acción: Cantidad de contactos por vendedor");
-        // Implementa la lógica necesaria aquí
+        String vendorId = "vendorId"; // Reemplazar con el ID del vendedor seleccionado
+
+        try {
+            Socket socket = new Socket("localhost", 12345);
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            // Enviar la solicitud de contactos por el vendedor
+            out.println("CONTACTOS_POR_VENDEDOR:" + vendorId);
+            String respuesta = in.readLine(); // Esperar respuesta del servidor
+
+            // Mostrar los contactos en un Alert
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Contactos por Vendedor");
+            alert.setHeaderText(null);
+            alert.setContentText("Contactos del vendedor:\n" + respuesta);
+            alert.showAndWait();
+
+            // Cerrar la conexión
+            in.close();
+            out.close();
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showError("Error al obtener contactos por el vendedor: " + e.getMessage());
+        }
     }
 
     @FXML
     private void handleTop10PopularProducts() {
-        System.out.println("Acción: Top 10 de productos más populares");
-        // Implementa la lógica necesaria aquí
+        try {
+            Socket socket = new Socket("localhost", 12345);
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            // Enviar la solicitud de los 10 productos más populares
+            out.println("TOP_10_PRODUCTOS_POPULARES");
+            String respuesta = in.readLine(); // Esperar respuesta del servidor
+
+            // Mostrar los productos en un Alert
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Top 10 Productos Más Populares");
+            alert.setHeaderText(null);
+            alert.setContentText("Los 10 productos más populares son:\n" + respuesta);
+            alert.showAndWait();
+
+            // Cerrar la conexión
+            in.close();
+            out.close();
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showError("Error al obtener los productos más populares: " + e.getMessage());
+        }
+    }
+
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

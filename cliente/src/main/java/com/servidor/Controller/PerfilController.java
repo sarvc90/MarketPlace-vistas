@@ -87,61 +87,81 @@ public class PerfilController {
         }
     }
 
-@FXML
-public void handleActualizarDatos() {
-    try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/servidor/views/actualizarDatos.fxml"));
-        Parent root = loader.load();
+    @FXML
+    public void handleActualizarDatos() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/servidor/views/actualizarDatos.fxml"));
+            Parent root = loader.load();
 
-        // Obtener el controlador de la nueva vista
-        ActualizarDatosController actualizarDatosController = loader.getController();
-        actualizarDatosController.initializeProfile(userId); // Pasar el ID del usuario
+            // Obtener el controlador de la nueva vista
+            ActualizarDatosController actualizarDatosController = loader.getController();
+            actualizarDatosController.initializeProfile(userId); // Pasar el ID del usuario
 
-        // Crear una nueva escena y mostrarla
-        Stage stage = (Stage) userImage.getScene().getWindow();
+            // Crear una nueva escena y mostrarla
+            Stage stage = (Stage) userImage.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error al abrir la vista de actualización de datos.");
+        }
+    }
+
+    @FXML
+    public void handlePublicarProducto() {
+        // Cargar la vista de publicar producto
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/servidor/publicarProducto.fxml"));
+        Parent root;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error al cargar la vista de publicar producto.");
+            return; // Salir del método si hay un error
+        }
+
+        // Obtener el controlador de la nueva vista de publicar producto
+        CrearProductoController publicarProductoController = loader.getController();
+        publicarProductoController.initialize(userId); // Inicializar con el ID del vendedor
+
+        // Crear una nueva escena y ventana
+        Stage stage = new Stage();
+        stage.setTitle("Publicar Producto");
         stage.setScene(new Scene(root));
         stage.show();
-    } catch (IOException e) {
-        e.printStackTrace();
-        System.out.println("Error al abrir la vista de actualización de datos.");
     }
-}
-
-@FXML
-public void handlePublicarProducto() {
-    // Cargar la vista de publicar producto
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/servidor/publicarProducto.fxml"));
-    Parent root;
-    try {
-        root = loader.load();
-    } catch (IOException e) {
-        e.printStackTrace();
-        System.out.println("Error al cargar la vista de publicar producto.");
-        return; // Salir del método si hay un error
-    }
-
-    // Obtener el controlador de la nueva vista de publicar producto
-    CrearProductoController publicarProductoController = loader.getController();
-    publicarProductoController.initialize(userId); // Inicializar con el ID del vendedor
-
-    // Crear una nueva escena y ventana
-    Stage stage = new Stage();
-    stage.setTitle("Publicar Producto");
-    stage.setScene(new Scene(root));
-    stage.show();
-}
 
     @FXML
     public void handleExportarEstadisticas() {
-        // Lógica para exportar estadísticas
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/servidor/views/ExportacionEstadisticas.fxml"));
+            Parent root = loader.load();
+    
+            // Obtener el controlador de la nueva vista
+            ExportacionEstadisticasController exportacionEstadisticasController = loader.getController();
+            exportacionEstadisticasController.initialize(userId); // Pasar el ID del usuario
+    
+            // Crear una nueva escena y mostrarla
+            Stage stage = new Stage();
+            stage.setTitle("Exportación de Estadísticas");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error al abrir la vista de exportación de estadísticas.");
+        }
     }
 
     // Método para cerrar la conexión al salir
     public void closeConnection() {
         try {
-            if (out != null) out.close();
-            if (in != null) in.close();
-            if (socket != null) socket.close();
+            if (out != null)
+                out.close();
+            if (in != null)
+                in.close();
+            if (socket != null)
+                socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

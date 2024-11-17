@@ -46,25 +46,21 @@ public class BaseChatController {
     }
 
     private void loadVendedores() {
-        // Aquí se debe implementar la lógica para solicitar la lista de vendedores al servidor
-        // y agregarla a la ListView. Por ejemplo:
         List<String> vendedores = obtenerVendedoresDesdeServidor();
         vendedoresListView.getItems().addAll(vendedores);
     }
 private List<String> obtenerVendedoresDesdeServidor() {
     List<String> vendedores = new ArrayList<>();
     try {
-        // Enviar solicitud al servidor para obtener la lista de vendedores
-        out.println("GET_VENDEDORES " + vendedorId); // Se envía el ID del vendedor actual
+        out.println("GET_VENDEDORES " + vendedorId); 
 
         // Leer la respuesta del servidor
         String response;
         while ((response = in.readLine()) != null) {
-            // Suponiendo que el servidor envía la lista de vendedores en líneas separadas
             if (response.equals("END")) {
-                break; // Termina la lectura al recibir "END"
+                break; 
             }
-            vendedores.add(response); // Agregar el vendedor a la lista
+            vendedores.add(response);
         }
     } catch (IOException e) {
         e.printStackTrace();
@@ -77,7 +73,6 @@ private List<String> obtenerVendedoresDesdeServidor() {
         String selectedVendedor = vendedoresListView.getSelectionModel().getSelectedItem();
         if (selectedVendedor != null) {
             chatArea.appendText("Iniciando chat con: " + selectedVendedor + "\n");
-            // Aquí puedes agregar lógica para cargar mensajes anteriores o inicializar el chat
         }
     }
 

@@ -1,8 +1,12 @@
 package com.servidor.Controller;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -160,10 +164,34 @@ public class CrearProductoController {
         alert.showAndWait();
     }
 
-    // Método simulado para enviar el producto al servidor
-    private boolean enviarProductoAlServidor(ProductoDTO productoDTO) {
-        // Aquí iría la lógica para enviar el producto al servidor
-        // Retornar true si se creó correctamente, false en caso contrario
-        return true; // Placeholder, implementar lógica real
+private boolean enviarProductoAlServidor(ProductoDTO productoDTO) {
+    try (Socket socket = new Socket("localhost", 12345); // Cambia la dirección y el puerto según tu servidor
+         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+
+        // Crear una cadena delimitada con los datos del producto
+        String productoData = String.join(",",
+                productoDTO.getNombre(),
+                productoDTO.getDescripcion(),
+                productoDTO.getFechaPublicacion().toString(), // Asegúrate de que el formato sea adecuado
+                productoDTO.getImagenRuta(),
+                String.valueOf(productoDTO.getPrecio()),
+                String.valueOf(productoDTO.getMeGustas()),
+                productoDTO.getEstado(),
+                productoDTO.getCategoria());
+
+        // Enviar el producto al servidor
+        out.println(productoData);
+
+        // Esperar la respuesta del servidor
+        String respuesta = in.readLine();
+
+        // Procesar la respuesta
+        return "Éxito".equalsIgnoreCase(respuesta); // Retorna true si la respuesta es "Éxito"
+
+    } catch (IOException e) {
+        e.printStackTrace();
+        return false; // Retorna false en caso de error
     }
+}
 }
