@@ -1,5 +1,7 @@
 package com.servidor;
 
+
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,7 +14,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         try {
             // Cargar el archivo FXML
-            Parent root = FXMLLoader.load(getClass().getResource("Producto.xml"));
+            Parent root = FXMLLoader.load(getClass().getResource("LogIn.xml"));
 
             // Crear la escena y establecerla en el escenario
             Scene scene = new Scene(root, 800, 600); // Puedes ajustar el tamaño aquí
@@ -29,3 +31,4 @@ public class Main extends Application {
         launch(args);
     }
 }
+

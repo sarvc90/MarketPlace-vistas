@@ -1,10 +1,17 @@
 package com.servidor.Controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -26,6 +33,15 @@ public class LogInController {
     private ImageView logoImage;
 
     @FXML
+    private TextField nameField; 
+
+    @FXML
+    private PasswordField passwordField; 
+
+    private static String HOST = "localhost";
+    private static final int PUERTO = 12345;
+
+    @FXML
     public void initialize() {
         try {
             // Cargar la imagen del usuario
@@ -42,7 +58,53 @@ public class LogInController {
 
     @FXML
     private void handleLogInButton() {
-        System.out.println("Iniciando Sesion");
+        String username = nameField.getText().trim(); // Usar trim para eliminar espacios en blanco
+        String password = passwordField.getText();
+    
+        // Validar que los campos no estén vacíos
+        if (username.isEmpty() || password.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Advertencia");
+            alert.setHeaderText(null);
+            alert.setContentText("Por favor, complete todos los campos.");
+            alert.showAndWait();
+            return; // Salir del método si hay campos vacíos
+        }
+    
+        try (Socket socket = new Socket(HOST, PUERTO);
+             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+    
+            // Enviar el nombre de usuario y la contraseña al servidor
+            out.println(username);
+            out.println(password);
+    
+            // Leer la respuesta del servidor
+            String response = in.readLine();
+    
+            // Verificar si la respuesta es nula
+            if (response == null || response.isEmpty()) {
+                // Mostrar un alert de error
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error de Inicio de Sesión");
+                alert.setHeaderText(null);
+                alert.setContentText("Usuario o contraseña incorrectos.");
+                alert.showAndWait();
+            } else {
+                // Aquí puedes manejar la respuesta válida (por ejemplo, iniciar sesión)
+                System.out.println("Inicio de sesión exitoso. ID: " + response);
+                // Puedes redirigir a otra vista o realizar otras acciones
+            }
+    
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Manejar excepciones de conexión
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error de Conexión");
+            alert.setHeaderText(null);
+            alert.setContentText("No se pudo conectar al servidor.");
+            alert.showAndWait();
+        }
     }
 
     @FXML

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.image.ImageView?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.servidor.Controller.CrearProductoController" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #67b99a;">
+    
+    <VBox alignment="CENTER" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #67b99a;" spacing="15">
+        <StackPane fx:id="stackPane" alignment="CENTER">
+            <Rectangle width="400" height="530" fill="#def1ea" arcWidth="30" arcHeight="30"/>
+            
+            <!-- VBox para la imagen y el registro -->
+            <VBox alignment="CENTER" spacing="0" style="-fx-padding: 20;">        
+                <!-- VBox para el registro -->
+                <VBox fx:id="CreacionBox" alignment="CENTER" spacing="20" prefHeight="550.0" prefWidth="350.0" style="-fx-padding: 0;">
+                    <Text text="Crear producto" style="-fx-font-family: 'Courier New'; -fx-font-size: 22px; -fx-font-weight: bold; -fx-fill: #827b7b;" />
+                    
+                    <HBox alignment="CENTER" spacing="10">
+                        <TextField fx:id="nombreField" promptText="Nombre..." style="-fx-background-color: #f2f2f2; -fx-text-fill: #827b7b; -fx-background-radius: 25; -fx-padding: 5; -fx-font-family: 'Courier New'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-font-style: italic;" prefWidth="150"/>
+                        <TextField fx:id="descripcionField" promptText="Descripción..." style="-fx-background-color: #f2f2f2; -fx-text-fill: #827b7b; -fx-background-radius: 25; -fx-padding: 5; -fx-font-family: 'Courier New'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-font-style: italic;" prefWidth="150"/>
+                    </HBox>
+
+                    <HBox alignment="CENTER" spacing="10">
+                        <TextField fx:id="PrecioField" promptText="Precio..." style="-fx-background-color: #f2f2f2; -fx-text-fill: #827b7b; -fx-background-radius: 25; -fx-padding: 5; -fx-font-family: 'Courier New'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-font-style: italic;" prefWidth="330"/>
+                    </HBox>
+                    
+                    <ComboBox fx:id="categoryComboBox" promptText="Categoría" style="-fx-background-color: transparent; -fx-text-fill: #005031; -fx-font-family: 'Courier New'; -fx-font-size: 14px; -fx-font-weight: bold;" prefWidth="150"/> <!-- ComboBox de categorías -->
+                    
+                    <!-- Botón para seleccionar imagen -->
+                    <Button fx:id="rutaButton" layoutX="200" layoutY="230" prefWidth="400" prefHeight="50" 
+                            style="-fx-background-color: #f2f2f2; -fx-font-size: 14px; -fx-font-family: 'Courier New'; -fx-text-fill: #827b7b; -fx-background-radius: 25;"
+                            onAction="#handleSelectImageButton">
+                        Elija la ruta de la imagen del producto
+                    </Button>
+                </VBox>
+            </VBox>
+        </StackPane>
+    </VBox>
+
+    <HBox layoutX="30" layoutY="10" spacing="5"> <!-- Ajustado para mover más a la izquierda -->
+        <VBox alignment="CENTER_LEFT" spacing="-10"> <!-- Agrupación vertical para market y place más cercanos -->
+            <Button fx:id="logoButton" style="-fx-background-color: transparent; -fx-padding: 0;" onAction="#handleLogo"> <!-- Botón de búsqueda -->
+                </Button>
+            <Text fx:id="marketText" text="market" style="-fx-font-family: 'Comic Sans MS'; -fx-font-size: 20px; -fx-font-weight: bold; -fx-fill: #005031;" />
+            <Text fx:id="placeText" text="place" style="-fx-font-family: 'Comic Sans MS'; -fx-font-size: 20px; -fx-font-weight: bold; -fx-fill: #005031;" />
+        </VBox>
+    </HBox>
+</AnchorPane>
