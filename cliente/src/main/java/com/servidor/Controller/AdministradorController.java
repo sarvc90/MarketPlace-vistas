@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.List;
 
 public class AdministradorController {
 
@@ -40,11 +39,9 @@ public class AdministradorController {
     }
 
     private void cargarProductos() {
-        try {
-            // Conectar al servidor para obtener la lista de productos
-            Socket socket = new Socket("localhost", 12345); // Cambia la dirección y el puerto según tu servidor
-            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        try (Socket socket = new Socket("localhost", 12345);
+             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
             // Solicitar la lista de productos
             out.println("OBTENER_PRODUCTOS");
@@ -52,11 +49,6 @@ public class AdministradorController {
             while ((linea = in.readLine()) != null) {
                 productosListView.getItems().add(linea); // Agregar cada producto a la lista
             }
-
-            // Cerrar la conexión
-            in.close();
-            out.close();
-            socket.close();
         } catch (IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -68,11 +60,9 @@ public class AdministradorController {
     }
 
     private void cargarVendedores() {
-        try {
-            // Conectar al servidor para obtener la lista de vendedores
-            Socket socket = new Socket("localhost", 12345); // Cambia la dirección y el puerto según tu servidor
-            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        try (Socket socket = new Socket("localhost", 12345);
+             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
             // Solicitar la lista de vendedores
             out.println("OBTENER_VENDEDORES");
@@ -80,11 +70,6 @@ public class AdministradorController {
             while ((linea = in.readLine()) != null) {
                 vendedoresListView.getItems().add(linea); // Agregar cada vendedor a la lista
             }
-
-            // Cerrar la conexión
-            in.close();
-            out.close();
-            socket.close();
         } catch (IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -98,7 +83,7 @@ public class AdministradorController {
     @FXML
     public void handlePanelControl() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/servidor/views/ControlPanel.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/servidor/views/ControlPanel.xml"));
             Parent root = loader.load();
 
             // Crear una nueva escena y mostrarla
@@ -115,7 +100,7 @@ public class AdministradorController {
     @FXML
     public void handleExportarEstadisticas() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/servidor/views/ExportacionEstadisticas.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/servidor/views/ExportacionEstadisticas.xml"));
             Parent root = loader.load();
 
             // Obtener el controlador de la nueva vista
@@ -125,7 +110,7 @@ public class AdministradorController {
             // Crear una nueva escena y mostrarla
             Stage stage = new Stage();
             stage.setTitle("Exportación de Estadísticas");
-            stage.setScene(new Scene(root));
+            stage.setScene(new Scene(root ));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -137,11 +122,9 @@ public class AdministradorController {
     public void handleEliminarProducto() {
         String productoSeleccionado = productosListView.getSelectionModel().getSelectedItem();
         if (productoSeleccionado != null) {
-            try {
-                // Conectar al servidor para eliminar el producto
-                Socket socket = new Socket("localhost", 12345);
-                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            try (Socket socket = new Socket("localhost", 12345);
+                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
                 // Enviar solicitud de eliminación
                 out.println("ELIMINAR_PRODUCTO:" + productoSeleccionado);
@@ -157,11 +140,6 @@ public class AdministradorController {
                 // Recargar la lista de productos
                 productosListView.getItems().clear();
                 cargarProductos();
-
-                // Cerrar la conexión
-                in.close();
-                out.close();
-                socket.close();
             } catch (IOException e) {
                 e.printStackTrace();
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -183,11 +161,9 @@ public class AdministradorController {
     public void handleEliminarVendedor() {
         String vendedorSeleccionado = vendedoresListView.getSelectionModel().getSelectedItem();
         if (vendedorSeleccionado != null) {
-            try {
-                // Conectar al servidor para eliminar el vendedor
-                Socket socket = new Socket("localhost", 12345);
-                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            try (Socket socket = new Socket("localhost", 12345);
+                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
                 // Enviar solicitud de eliminación
                 out.println("ELIMINAR_VENDEDOR:" + vendedorSeleccionado);
@@ -203,11 +179,6 @@ public class AdministradorController {
                 // Recargar la lista de vendedores
                 vendedoresListView.getItems().clear();
                 cargarVendedores();
-
-                // Cerrar la conexión
-                in.close();
-                out.close();
-                socket.close();
             } catch (IOException e) {
                 e.printStackTrace();
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -228,7 +199,7 @@ public class AdministradorController {
     @FXML
     public void handleCrearVendedor() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/servidor/views/Registro.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/servidor/views/Registro.xml"));
             Parent root = loader.load();
 
             // Crear una nueva escena y mostrarla

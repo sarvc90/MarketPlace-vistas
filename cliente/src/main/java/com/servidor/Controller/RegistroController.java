@@ -41,6 +41,8 @@ public class RegistroController {
     @FXML
     private TextField cedulaField; // Campo para la cédula
     @FXML
+    private TextField contraseñaField; // Campo para la cédula
+    @FXML
     private TextField direccionField; // Campo para la dirección
 
     private static final String HOST = "localhost";
@@ -79,15 +81,18 @@ public class RegistroController {
     private void handleRegisterButton() {
         String nombre = nombreField.getText();
         String apellido = apellidoField.getText();
+        String contraseña = contraseñaField.getText();
         String cedula = cedulaField.getText();
         String direccion = direccionField.getText();
 
         // Crear un objeto VendedorDTO
         VendedorDTO vendedor = new VendedorDTO();
+        vendedor.setId(null);
         vendedor.setNombre(nombre);
         vendedor.setApellido(apellido);
         vendedor.setCedula(cedula);
         vendedor.setDireccion(direccion);
+        vendedor.setContraseña(contraseña);
         // Puedes agregar valores por defecto para las listas si es necesario
         vendedor.setPublicacionesIds(new ArrayList<>());
         vendedor.setRedDeContactosIds(new ArrayList<>());
@@ -102,7 +107,7 @@ public class RegistroController {
 
             // Enviar el comando de registro
             out.println("REGISTER " + vendedor.getNombre() + "," + vendedor.getApellido() + "," +
-                    vendedor.getCedula() + "," + vendedor.getDireccion());
+                    vendedor.getCedula() + "," + vendedor.getDireccion() + "," + vendedor.getContraseña());
 
             // Leer la respuesta del servidor
             String response = in.readLine();

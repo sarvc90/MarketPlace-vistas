@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -94,7 +95,19 @@ public class ActualizarDatosController {
         try {
             out.println("UPDATE_VENDEDOR " + userId + "," + nombres + "," + apellidos + "," + cedula + "," + contrasena + "," + direccion);
             String response = in.readLine(); // Leer la respuesta del servidor
-            System.out.println("Respuesta del servidor: " + response);
+            if (response != null && response.equals("SUCCESS")) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Actualización Exitosa");
+                alert.setHeaderText(null);
+                alert.setContentText("Los datos se han actualizado correctamente.");
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error de Actualización");
+                alert.setHeaderText(null);
+                alert.setContentText("No se pudo actualizar los datos. Intente nuevamente.");
+                alert.showAndWait();
+            }
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error al enviar los datos actualizados al servidor.");

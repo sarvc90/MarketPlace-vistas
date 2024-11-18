@@ -29,8 +29,8 @@
                     <Text text="Registro" style="-fx-font-family: 'Courier New'; -fx-font-size: 22px; -fx-font-weight: bold; -fx-fill: #827b7b;" />
                     
                     <HBox alignment="CENTER" spacing="10">
-                        <TextField fx:id="firstNameField" promptText="Nombres..." style="-fx-background-color: #f2f2f2; -fx-text-fill: #827b7b; -fx-background-radius: 25; -fx-padding: 5; -fx-font-family: 'Courier New'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-font-style: italic;" prefWidth="150"/>
-                        <TextField fx:id="lastNameField" promptText="Apellidos..." style="-fx-background-color: #f2f2f2; -fx-text-fill: #827b7b; -fx-background-radius: 25; -fx-padding: 5; -fx-font-family: 'Courier New'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-font-style: italic;" prefWidth="150"/>
+                        <TextField fx:id="nombreField" promptText="Nombres..." style="-fx-background-color: #f2f2f2; -fx-text-fill: #827b7b; -fx-background-radius: 25; -fx-padding: 5; -fx-font-family: 'Courier New'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-font-style: italic;" prefWidth="150"/>
+                        <TextField fx:id="apellidoField" promptText="Apellidos..." style="-fx-background-color: #f2f2f2; -fx-text-fill: #827b7b; -fx-background-radius: 25; -fx-padding: 5; -fx-font-family: 'Courier New'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-font-style: italic;" prefWidth="150"/>
                     </HBox>
 
                     <HBox alignment="CENTER" spacing="10">
@@ -38,11 +38,11 @@
                     </HBox>
                     
                     <HBox alignment="CENTER" spacing="10">
-                        <PasswordField fx:id="passwordField" promptText="Contraseña..." style="-fx-background-color: #f2f2f2; -fx-text-fill: #827b7b; -fx-background-radius: 25; -fx-padding: 5; -fx-font-family: 'Courier New'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-font-style: italic;" prefWidth="330"/>
+                        <PasswordField fx:id="contraseñaField" promptText="Contraseña..." style="-fx-background-color: #f2f2f2; -fx-text-fill: #827b7b; -fx-background-radius: 25; -fx-padding: 5; -fx-font-family: 'Courier New'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-font-style: italic;" prefWidth="330"/>
                     </HBox>
                     
                     <HBox alignment="CENTER" spacing="10">
-                        <TextField fx:id="addressField" promptText="Dirección..." style="-fx-background-color: #f2f2f2; -fx-text-fill: #827b7b; -fx-background-radius: 25; -fx-padding: 5; -fx-font-family: 'Courier New'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-font-style: italic;" prefWidth="330"/>
+                        <TextField fx:id="direccionField" promptText="Dirección..." style="-fx-background-color: #f2f2f2; -fx-text-fill: #827b7b; -fx-background-radius: 25; -fx-padding: 5; -fx-font-family: 'Courier New'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-font-style: italic;" prefWidth="330"/>
                     </HBox>
                     
                     <Button text="Registrarse" style="-fx-background-color: #67b99a; -fx-text-fill: #ffffff; -fx-font-family: 'Courier New'; -fx-font-size: 18px; -fx-font-weight: bold; -fx-background-radius: 25; -fx-padding: 5;" prefWidth="330" onAction="#handleRegisterButton" />

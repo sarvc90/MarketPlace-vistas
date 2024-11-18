@@ -32,6 +32,7 @@ public class BaseChatController {
         this.vendedorId = vendedorId;
         connectToServer();
         loadVendedores();
+        //startMessageListener(); // Iniciar un hilo para escuchar mensajes del servidor
     }
 
     private void connectToServer() {
@@ -49,25 +50,27 @@ public class BaseChatController {
         List<String> vendedores = obtenerVendedoresDesdeServidor();
         vendedoresListView.getItems().addAll(vendedores);
     }
-private List<String> obtenerVendedoresDesdeServidor() {
-    List<String> vendedores = new ArrayList<>();
-    try {
-        out.println("GET_VENDEDORES " + vendedorId); 
 
-        // Leer la respuesta del servidor
-        String response;
-        while ((response = in.readLine()) != null) {
-            if (response.equals("END")) {
-                break; 
+    private List<String> obtenerVendedoresDesdeServidor() {
+        List<String> vendedores = new ArrayList<>();
+        try {
+            out.println("GET_VENDEDORES " + vendedorId); 
+
+            // Leer la respuesta del servidor
+            String response;
+            while ((response = in.readLine()) != null) {
+                if (response.equals("END")) {
+                    break; 
+                }
+                vendedores.add(response);
             }
-            vendedores.add(response);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error al obtener la lista de vendedores desde el servidor.");
         }
-    } catch (IOException e) {
-        e.printStackTrace();
-        System.out.println("Error al obtener la lista de vendedores desde el servidor.");
+        return vendedores;
     }
-    return vendedores;
-}
+
     @FXML
     private void handleVendedorSelection(MouseEvent event) {
         String selectedVendedor = vendedoresListView.getSelectionModel().getSelectedItem();
@@ -89,6 +92,20 @@ private List<String> obtenerVendedoresDesdeServidor() {
                 chatArea.appendText("Por favor, selecciona un vendedor para chatear.\n");
             }
         }
+    }
+
+    private void starMessageListener() {
+        new Thread(() -> {
+            String message;
+            try {
+                while ((message = in.readLine()) != null) {
+                    chatArea.appendText(message + "\n"); // Agregar el mensaje al área de chat
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Error al recibir mensajes del servidor.");
+            }
+        }).start();
     }
 
     // Método para cerrar la conexión al salir

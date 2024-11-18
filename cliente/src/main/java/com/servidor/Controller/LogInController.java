@@ -96,7 +96,7 @@ public class LogInController {
 
                 // Cargar la nueva vista
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/servidor/Inicial.fxml")); // Cambia
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/servidor/Inicial.xml")); // Cambia
                                                                                                               // la ruta
                                                                                                               // al
                                                                                                               // archivo
@@ -143,6 +143,12 @@ public class LogInController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+            // Manejar excepciones de carga de vista
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error de Carga de Vista");
+            alert.setHeaderText(null);
+            alert.setContentText("No se pudo cargar la vista de registro.");
+            alert.showAndWait();
         }
     }
 }

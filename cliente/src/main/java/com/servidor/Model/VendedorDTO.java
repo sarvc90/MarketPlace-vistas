@@ -9,6 +9,7 @@ public class VendedorDTO implements Serializable{
     private String apellido;
     private String cedula;
     private String direccion;
+    private String contraseña;
     private List<String> publicacionesIds; // Solo almacenamos los IDs de las publicaciones
     private List<String> redDeContactosIds; // Solo almacenamos los IDs de los contactos
     private List<Integer> calificaciones;
@@ -18,7 +19,7 @@ public class VendedorDTO implements Serializable{
     // Constructor
     public VendedorDTO() {}
 
-    public VendedorDTO(String id, String nombre, String apellido, String cedula, String direccion,
+    public VendedorDTO(String id, String nombre, String apellido, String cedula, String direccion,String contraseña,
                        List<String> publicacionesIds, List<String> redDeContactosIds,
                        List<Integer> calificaciones, int contadorCalificaciones, double promedioCalificaciones) {
         this.id = id;
@@ -26,6 +27,7 @@ public class VendedorDTO implements Serializable{
         this.apellido = apellido;
         this.cedula = cedula;
         this.direccion = direccion;
+        this.contraseña = contraseña;
         this.publicacionesIds = publicacionesIds;
         this.redDeContactosIds = redDeContactosIds;
         this.calificaciones = calificaciones;
@@ -41,7 +43,12 @@ public class VendedorDTO implements Serializable{
     public void setId(String id) {
         this.id = id;
     }
-
+    public String getContraseña(){
+        return contraseña;
+    }
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
     public String getNombre() {
         return nombre;
     }
